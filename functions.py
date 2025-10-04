@@ -6,7 +6,6 @@ def show_additional(company_name):
     show_additional = show_additional.upper()
 
     if (show_additional == "Y"):
-
         display = yf.Ticker(company_name)
 
         print("historical market data:")
@@ -24,8 +23,7 @@ def show_additional(company_name):
 
 
 def country_code():
-
-    country_name = str(input("stock exchange: "))
+    country_name = str(input("country: "))
     country_name = country_name.upper()
     if (country_name == "CURRENCY"):
         code_string = "=X"
@@ -60,8 +58,7 @@ def country_code():
     elif (country_name == "US"):
         code_string = ""
     else:
-        print("https://in.help.yahoo.com/kb/SLN2310.html")
-        code_string = str(input("suffix: "))
+        code_string = str(input("suffix in.help.yahoo.com/kb/SLN2310.html: "))
 
     return code_string
 
@@ -109,8 +106,7 @@ def multi():
         'SHREECEM.NS', 'SIEMENS.NS', 'SBIN.NS', 'SAIL.NS', 'SUNPHARMA.NS', 'TCS.NS',
         'TATACONSUM.NS', 'TATAMOTORS.NS', 'TATASTEEL.NS', 'TECHM.NS', 'TITAN.NS',
         'TORNTPHARM.NS', 'UPL.NS', 'MCDOWELL-N.NS', 'VEDL.NS', 'WIPRO.NS', 'ZOMATO.NS',
-        'ZYDUSLIFE.NS'
-    ]
+        'ZYDUSLIFE.NS']
 
     entity_list = ['^NSEI','^BSESN','^GSPC','MSFT','IWO','VFINX','BTC-USD','ETH-USD','XRP-USD','DOGE-USD','LTC-USD','ITC.NS','CIPLA.NS','ONGC.NS']
 
@@ -124,7 +120,6 @@ def multi():
 
 
 def console_chart(data_list):
-
     #data_list = [open, high, low, close]
     #Not to scale
     print("\n")
@@ -202,7 +197,6 @@ def console_chart_v2(data_list):
             print(end="\n")
     except Exception as e:
         print("key error:",e)
-        
     print("\n")
 
 

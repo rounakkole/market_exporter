@@ -9,7 +9,7 @@ class export_class:
         self.entity = _entity
 
     def interface(self):
-        #from functions import show_additional
+        from functions import show_additional
         from functions import country_code
         from functions import multi
 
@@ -17,9 +17,10 @@ class export_class:
         if (entity == "S" or entity == "SETTINGS"):
             self.entity = input("entity name: ")
             self.suffix = country_code()
-            print("1d, 5d, 1mo")
-            self.interval = str(input("interval: "))
-            self.period = set_period(self.interval)
+            self.interval = str(input("interval 1d,5d,1mo: "))
+            self.period = str(input("period 3mo,1y,5y: "))
+            if(self.period == ""):
+                self.period = set_period(self.interval)
             #show_additional(entity)
             self.interface()
 
@@ -33,6 +34,7 @@ class export_class:
         else:
             self.analyser()
 
+
     def analyser(self):
         from yfinance import download as yf_download 
         from functions import console_chart_v2
@@ -45,7 +47,7 @@ class export_class:
         entity = self.entity + self.suffix
         data = yf_download(tickers=entity,
                            period=self.period,
-                           interval=self.interval, auto_adjust=False)
+                           interval=self.interval, auto_adjust=False, progress=False)
 
 
         data_len = len(data) - 1
@@ -67,13 +69,13 @@ class export_class:
                         #print(data)
                         print(entity, end=",")
                         print(round(closeValue, 2), end=",")
-                        print("24", end=",")
-                        print(date.strftime('%d-%m-%Y'), end="\n")
+                        print(self.interval, end=",")
+                        print(date.strftime('%d-%m-%Y'), end="\n") #Windows
+                        #print(date.strftime('%m-%d-%Y'), end="\n") #Linux
                         
                         if ((data_len - i) < (5)):
                             value0_desc[4 - (data_len - i)] = openValue, highValue, lowValue, closeValue
                     else:
-                        #0=20
                         #print(openValue, highValue, lowValue, closeValue).
                         break
 
