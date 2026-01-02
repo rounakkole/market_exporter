@@ -4,6 +4,7 @@ class export_class:
     period = "3mo"
     interval = "1d"
     suffix = ""
+    filename = "output.csv"
     
     def __init__(self, _entity):
         self.entity = _entity
@@ -12,6 +13,9 @@ class export_class:
         from functions import show_additional
         from functions import country_code
         from functions import multi
+        
+        unique_id = id(object()) # unique per run
+        self.filename = f"{unique_id}.csv"
 
         entity = self.entity.upper()
         if (entity == "S" or entity == "SETTINGS"):
@@ -52,6 +56,9 @@ class export_class:
 
         data_len = len(data) - 1
         i = data_len + 1
+        
+        print(entity)
+        
         while (i > 0 and itr_fail < 7):
             i = i - 1
 
@@ -66,12 +73,24 @@ class export_class:
                     if ((data_len - i) < (60)):
 
                         date = data.index[i]
+                        
+                        '''
                         #print(data)
                         print(entity, end=",")
                         print(round(closeValue, 2), end=",")
                         print(self.interval, end=",")
                         print(date.strftime('%d-%m-%Y'), end="\n") #Windows
                         #print(date.strftime('%m-%d-%Y'), end="\n") #Linux
+                        '''
+                        
+                        # Open a file in append mode (creates if not exists)
+                        with open(self.filename, "a") as f:
+                            f.write(f"{entity},")
+                            f.write(f"{round(closeValue, 2)},")
+                            f.write(f"{self.interval},")
+                            f.write(f"{date.strftime('%d-%m-%Y')}") # Windows 
+                            # f.write(f"{date.strftime('%m-%d-%Y')}")   # Linux 
+                            f.write("\n")  # newline at the end
                         
                         if ((data_len - i) < (5)):
                             value0_desc[4 - (data_len - i)] = openValue, highValue, lowValue, closeValue
